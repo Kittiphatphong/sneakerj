@@ -22,18 +22,179 @@
     <!--begin::Layout Themes(used by all pages)-->
     <!--end::Layout Themes-->
     <link rel="shortcut icon" href="assets/media/logos/favicon.ico" />
-    <link  href="assets/Lao_SomVang.ttf" rel="stylesheet" type="text/css"/>
-
+    <link href="assets/css/mycss.css" rel="stylesheet" type="text/css" />
     <style>
+        @font-face {
+            font-family: Lao_SomVang;
+            src: url(assets/Lao_SomVang.ttf);
+        }
         body {
             font-family: Lao_SomVang;
         }
     </style>
+
 </head>
 <!--end::Head-->
 <!--begin::Body-->
 <body id="kt_body" class="header-fixed header-mobile-fixed subheader-enabled page-loading">
-@yield('content')
+
+
+    <div id="kt_header_mobile" class="header-mobile header-mobile-fixed">
+
+        <div >
+            <a href="/">
+                <img alt="Logo" src="assets/media/logos/logo-letter-5.png" width="50px" />
+            </a>
+        </div>
+        <button class="btn p-0 ml-2" >
+					<button class="btn btn-primary " onclick="window.history.back()">
+ກັບ​ຄຶນ
+					</button>
+        </button>
+    </div>
+    <!--end::Header Mobile-->
+    <div class="d-flex flex-column flex-root">
+        <!--begin::Page-->
+        <div class="d-flex flex-row flex-column-fluid page">
+            <!--begin::Wrapper-->
+            <div class="d-flex flex-column flex-row-fluid wrapper" id="kt_wrapper">
+                <!--begin::Header-->
+                <div id="kt_header" class="header flex-column header-fixed">
+                    <!--begin::Top-->
+                    <div class="header-top">
+                        <!--begin::Container-->
+                        <div class="container">
+                            <!--begin::Left-->
+                            <div class="d-none d-lg-flex align-items-center mr-3">
+                                <!--begin::Logo-->
+                                <a href="/" class="mr-10">
+                                    <img alt="Logo" src="assets/media/logos/logo-letter-5.png" width="70px" />
+                                </a>
+                                <!--end::Logo-->
+
+                            </div>
+                            <!--end::Left-->
+
+                        </div>
+                        <!--end::Container-->
+                    </div>
+                    <!--end::Top-->
+                    <!--begin::Bottom-->
+                    <div class="header-bottom">
+                        <!--begin::Container-->
+                        <div class="container">
+                            <!--begin::Header Menu Wrapper-->
+                            <div class="header-menu-wrapper header-menu-wrapper-left" id="kt_header_menu_wrapper">
+                                <!--begin::Header Menu-->
+                                <div id="kt_header_menu" class="header-menu header-menu-left header-menu-mobile header-menu-layout-default">
+                                    <!--begin::Header Nav-->
+                                    <ul class="menu-nav float-right">
+                                        <li class="menu-item menu-item-active " aria-haspopup="true">
+                                        <span onclick="window.history.back()" class="menu-link">
+                                            <span class="menu-text" >ກັບ​ຄືນ</span>
+                                        </span>
+                                        </li>
+
+                                    </ul>
+                                    <!--end::Header Nav-->
+                                </div>
+                                <!--end::Header Menu-->
+                            </div>
+
+                            <!--end::Header Menu Wrapper-->
+                            <!--begin::Desktop Search-->
+
+                        </div>
+                        <!--end::Container-->
+                    </div>
+                    <!--end::Bottom-->
+                </div>
+                <!--end::Header-->
+                <!--begin::Scrolltop-->
+                <div id="kt_scrolltop" class="scrolltop">
+			<span class="svg-icon">
+				<!--begin::Svg Icon | path:assets/media/svg/icons/Navigation/Up-2.svg-->
+				<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
+					<g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+						<polygon points="0 0 24 0 24 24 0 24" />
+						<rect fill="#000000" opacity="0.3" x="11" y="10" width="2" height="10" rx="1" />
+						<path d="M6.70710678,12.7071068 C6.31658249,13.0976311 5.68341751,13.0976311 5.29289322,12.7071068 C4.90236893,12.3165825 4.90236893,11.6834175 5.29289322,11.2928932 L11.2928932,5.29289322 C11.6714722,4.91431428 12.2810586,4.90106866 12.6757246,5.26284586 L18.6757246,10.7628459 C19.0828436,11.1360383 19.1103465,11.7686056 18.7371541,12.1757246 C18.3639617,12.5828436 17.7313944,12.6103465 17.3242754,12.2371541 L12.0300757,7.38413782 L6.70710678,12.7071068 Z" fill="#000000" fill-rule="nonzero" />
+					</g>
+				</svg>
+                <!--end::Svg Icon-->
+			</span>
+                </div>
+                <!--end::Scrolltop-->
+                <!--begin::Content-->
+                <div class="content d-flex flex-column flex-column-fluid" id="kt_content">
+                    <!--begin::Subheader-->
+                    <div class="subheader py-2 py-lg-6 subheader-transparent" id="kt_subheader">
+                        <div class="container d-flex align-items-center justify-content-between flex-wrap flex-sm-nowrap">
+                            <!--begin::Info-->
+                            <div class="d-flex align-items-center flex-wrap mr-1">
+                                <!--begin::Page Heading-->
+                                <div class="d-flex align-items-baseline flex-wrap mr-5">
+                                    <!--begin::Page Title-->
+
+                                    <!--end::Page Title-->
+                                </div>
+                                <!--end::Page Heading-->
+                            </div>
+                            <!--end::Info-->
+                            <!--begin::Toolbar-->
+                            <div class="container">
+                                @yield('content')
+
+                            </div>
+                            <!--end::Toolbar-->
+                        </div>
+                    </div>
+                    <!--end::Subheader-->
+
+                </div>
+                <!--end::Content-->
+                <!--begin::Footer-->
+                <div class="footer bg-white py-4 d-flex flex-lg-column" id="kt_footer">
+                    <!--begin::Container-->
+                    <div class="container d-flex flex-column flex-md-row align-items-center justify-content-between">
+                        <!--begin::Copyright-->
+                        <div class="text-dark order-2 order-md-1">
+                            <span class="text-muted font-weight-bold mr-2">2021©</span>
+                            <a href="http://keenthemes.com/metronic" target="_blank" class="text-dark-75 text-hover-primary">SneakerJ</a>
+                        </div>
+                        <!--end::Copyright-->
+                        <!--begin::Nav-->
+                        <div class="nav nav-dark order-1 order-md-2">
+                            <a href="#http://keenthemes.com/metronic" target="_blank" class="nav-link pr-3 pl-0">About</a>
+                            <a href="#" target="_blank" class="nav-link pl-3 pr-0">Contact</a>
+                        </div>
+                        <!--end::Nav-->
+                    </div>
+                    <!--end::Container-->
+                </div>
+                <!--end::Footer-->
+            </div>
+            <!--end::Wrapper-->
+        </div>
+        <!--end::Page-->
+    </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 <script>var HOST_URL = "https://preview.keenthemes.com/metronic/theme/html/tools/preview";</script>

@@ -13,7 +13,7 @@
     </div>
     <div class="text-center">
         <a href="/">
-        <img alt="Logo" src="assets/media/logos/logo-letter-5.png" class="max-h-30px" />
+        <img alt="Logo" src="assets/media/logos/logo-letter-5.png" width="50px" />
         </a>
     </div>
     <button class="btn p-0 ml-2" id="kt_header_mobile_topbar_toggle">
@@ -26,8 +26,10 @@
 					</span>
     </button>
 </div>
+
 <!--end::Header Mobile-->
 <div class="d-flex flex-column flex-root">
+
     <!--begin::Page-->
     <div class="d-flex flex-row flex-column-fluid page">
         <!--begin::Wrapper-->
@@ -41,8 +43,8 @@
                         <!--begin::Left-->
                         <div class="d-none d-lg-flex align-items-center mr-3">
                             <!--begin::Logo-->
-                            <a href="index.html" class="mr-10">
-                                <img alt="Logo" src="assets/media/logos/logo-letter-5.png" class="max-h-35px" />
+                            <a href="/" class="mr-10">
+                                <img alt="Logo" src="assets/media/logos/logo-letter-5.png" width="70px" />
                             </a>
                             <!--end::Logo-->
 
@@ -90,7 +92,7 @@
 																</span>
 															</span>
                                                 </div>
-                                                <input type="text" class="form-control" placeholder="Search..." />
+                                                <input type="text" class="form-control" placeholder="ຄົ້ນ​ຫາ"  wire:model="searchAll"/>
                                                 <div class="input-group-append">
 															<span class="input-group-text">
 																<i class="quick-search-close ki ki-close icon-sm text-muted"></i>
@@ -150,6 +152,8 @@
                                         </div>
                                         <!--end::Header-->
                                         <!--begin::Content-->
+
+
                                         <div class="tab-content">
                                             <!--begin::Tabpane-->
                                             <div class="tab-pane active show p-8" id="topbar_notifications_notifications" role="tabpanel">
@@ -164,7 +168,7 @@
                                                                     <input type="checkbox" value="{{$type->type}}" name="types" wire:model="type" />
                                                                     <span></span>
                                                                     <div class="font-size-lg text-dark-75 font-weight-bold">{{$type->type}} </div>
-                                                                    <div class="ml-auto text-muted font-weight-bold"> <span> ({{$type->sneakers->count()}})</span></div>
+                                                                    <div class="ml-auto text-muted font-weight-bold"> <span> </span></div>
                                                                 </label>
 
                                                             @endforeach
@@ -316,7 +320,14 @@
 														</span>
 													</span>
                                         </div>
-                                        <input type="text" class="form-control h-40px" placeholder="Search..." />
+                                        <input list="fullName" class="form-control h-40px" placeholder="ຄົ້ນ​ຫາ" wire:model="searchAll"/>
+                                        <datalist id="fullName">
+ @foreach($sneakerDataList as $sneaker)
+<option value="{{$sneaker->fullName}}"><img src="{{$sneaker->sneakerImages->first()->name}}" >{{$sneaker->fullName}}</option>
+
+  @endforeach
+
+</datalist>
                                         <div class="input-group-append">
 													<span class="input-group-text">
 														<i class="quick-search-close ki ki-close icon-sm"></i>
@@ -357,10 +368,36 @@
 			</span>
             </div>
             <!--end::Scrolltop-->
+
+
             <!--begin::Content-->
             <div class="content d-flex flex-column flex-column-fluid" id="kt_content">
+
+
+                    @if(Session()->has('success'))
+
+                        <div class="alert alert-success text-center">
+                            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                            <h4>{{ Session()->get('success') }}</h4>
+                        </div>
+                    @endif
+                    @if(Session()->has('warning'))
+                        <div class="alert alert-danger text-center">
+                            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                            {{Session()->get('warning')}}
+                        </div>
+                    @endif
+                    @if($errors->any())
+                        <div class="alert alert-danger text-center">
+                            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                            @foreach($errors->all() as $error)
+                                <p class="border">{{$error}}</p>
+                            @endforeach
+                            @endif
+
                 <!--begin::Subheader-->
                 <div class="subheader py-2 py-lg-6 subheader-transparent" id="kt_subheader">
+
                     <div class="container d-flex align-items-center justify-content-between flex-wrap flex-sm-nowrap">
                         <!--begin::Info-->
                         <div class="d-flex align-items-center flex-wrap mr-1">
@@ -373,12 +410,7 @@
                             <!--end::Page Heading-->
                         </div>
                         <!--end::Info-->
-                        <!--begin::Toolbar-->
-                        <div class="d-flex align-items-center">
 
-
-                        </div>
-                        <!--end::Toolbar-->
                     </div>
                 </div>
                 <!--end::Subheader-->
@@ -406,7 +438,7 @@
                                                             <input type="checkbox" value="{{$type->type}}" name="types" wire:model="type" />
                                                             <span></span>
                                                             <div class="font-size-lg text-dark-75 font-weight-bold">{{$type->type}}</div>
-                                                            <div class="ml-auto text-muted font-weight-bold">{{$type->sneakers->count()}}</div>
+                                                            <div class="ml-auto text-muted font-weight-bold"></div>
                                                         </label>
                                                     @endforeach
                                                 </div>
@@ -483,197 +515,52 @@
                                     <!--end::Body-->
                                 </div>
                                 <!--end::Forms Widget 15-->
-                                <!--begin::List Widget 21-->
-{{--                                <div class="card card-custom gutter-b">--}}
-{{--                                    <!--begin::Header-->--}}
-{{--                                    <div class="card-header border-0 pt-5">--}}
-{{--                                        <h3 class="card-title align-items-start flex-column mb-5">--}}
-{{--                                            <span class="card-label font-weight-bolder text-dark mb-1">Recent Products</span>--}}
-{{--                                            <span class="text-muted mt-2 font-weight-bold font-size-sm">New Arrivals</span>--}}
-{{--                                        </h3>--}}
-{{--                                        <div class="card-toolbar">--}}
-{{--                                            <div class="dropdown dropdown-inline">--}}
-{{--                                                <a href="#" class="btn btn-clean btn-sm btn-icon" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">--}}
-{{--                                                    <i class="ki ki-bold-more-hor"></i>--}}
-{{--                                                </a>--}}
-{{--                                                <div class="dropdown-menu dropdown-menu-md dropdown-menu-right">--}}
-{{--                                                    <!--begin::Navigation-->--}}
-{{--                                                    <ul class="navi navi-hover">--}}
-{{--                                                        <li class="navi-header font-weight-bold py-4">--}}
-{{--                                                            <span class="font-size-lg">Choose Label:</span>--}}
-{{--                                                            <i class="flaticon2-information icon-md text-muted" data-toggle="tooltip" data-placement="right" title="Click to learn more..."></i>--}}
-{{--                                                        </li>--}}
-{{--                                                        <li class="navi-separator mb-3 opacity-70"></li>--}}
-{{--                                                        <li class="navi-item">--}}
-{{--                                                            <a href="#" class="navi-link">--}}
-{{--																		<span class="navi-text">--}}
-{{--																			<span class="label label-xl label-inline label-light-success">Customer</span>--}}
-{{--																		</span>--}}
-{{--                                                            </a>--}}
-{{--                                                        </li>--}}
-{{--                                                        <li class="navi-item">--}}
-{{--                                                            <a href="#" class="navi-link">--}}
-{{--																		<span class="navi-text">--}}
-{{--																			<span class="label label-xl label-inline label-light-danger">Partner</span>--}}
-{{--																		</span>--}}
-{{--                                                            </a>--}}
-{{--                                                        </li>--}}
-{{--                                                        <li class="navi-item">--}}
-{{--                                                            <a href="#" class="navi-link">--}}
-{{--																		<span class="navi-text">--}}
-{{--																			<span class="label label-xl label-inline label-light-warning">Suplier</span>--}}
-{{--																		</span>--}}
-{{--                                                            </a>--}}
-{{--                                                        </li>--}}
-{{--                                                        <li class="navi-item">--}}
-{{--                                                            <a href="#" class="navi-link">--}}
-{{--																		<span class="navi-text">--}}
-{{--																			<span class="label label-xl label-inline label-light-primary">Member</span>--}}
-{{--																		</span>--}}
-{{--                                                            </a>--}}
-{{--                                                        </li>--}}
-{{--                                                        <li class="navi-item">--}}
-{{--                                                            <a href="#" class="navi-link">--}}
-{{--																		<span class="navi-text">--}}
-{{--																			<span class="label label-xl label-inline label-light-dark">Staff</span>--}}
-{{--																		</span>--}}
-{{--                                                            </a>--}}
-{{--                                                        </li>--}}
-{{--                                                        <li class="navi-separator mt-3 opacity-70"></li>--}}
-{{--                                                        <li class="navi-footer py-4">--}}
-{{--                                                            <a class="btn btn-clean font-weight-bold btn-sm" href="#">--}}
-{{--                                                                <i class="ki ki-plus icon-sm"></i>Add new</a>--}}
-{{--                                                        </li>--}}
-{{--                                                    </ul>--}}
-{{--                                                    <!--end::Navigation-->--}}
-{{--                                                </div>--}}
-{{--                                            </div>--}}
-{{--                                        </div>--}}
-{{--                                    </div>--}}
-{{--                                    <!--end::Header-->--}}
-{{--                                    <!--begin::Body-->--}}
-{{--                                    <div class="card-body pt-2">--}}
-{{--                                        <!--begin::Item-->--}}
-{{--                                        <div class="d-flex mb-8">--}}
-{{--                                            <!--begin::Symbol-->--}}
-{{--                                            <div class="symbol symbol-50 symbol-2by3 flex-shrink-0 mr-4">--}}
-{{--                                                <div class="d-flex flex-column">--}}
-{{--                                                    <div class="symbol-label mb-3" style="background-image: url('assets/media/stock-600x400/img-23.jpg')"></div>--}}
-{{--                                                    <a href="#" class="btn btn-light-primary font-weight-bolder py-2 font-size-sm">Edit</a>--}}
-{{--                                                </div>--}}
-{{--                                            </div>--}}
-{{--                                            <!--end::Symbol-->--}}
-{{--                                            <!--begin::Title-->--}}
-{{--                                            <div class="d-flex flex-column flex-grow-1 my-lg-0 my-2 pr-3">--}}
-{{--                                                <a href="#" class="text-dark-75 font-weight-bolder text-hover-primary font-size-lg mb-2">Darius the Great</a>--}}
-{{--                                                <span class="text-muted font-weight-bold font-size-sm mb-3">All it takes tank credibility is one glaring error</span>--}}
-{{--                                                <span class="text-muted font-weight-bold font-size-lg">Price:--}}
-{{--														<span class="text-dark-75 font-weight-bolder">99.00$</span></span>--}}
-{{--                                            </div>--}}
-{{--                                            <!--end::Title-->--}}
-{{--                                        </div>--}}
-{{--                                        <!--end::Item-->--}}
-{{--                                        <!--begin::Item-->--}}
-{{--                                        <div class="d-flex">--}}
-{{--                                            <!--begin::Symbol-->--}}
-{{--                                            <div class="symbol symbol-50 symbol-2by3 flex-shrink-0 mr-4">--}}
-{{--                                                <div class="d-flex flex-column">--}}
-{{--                                                    <div class="symbol-label mb-3" style="background-image: url('assets/media/stock-600x400/img-25.jpg')"></div>--}}
-{{--                                                    <a href="#" class="btn btn-light-primary font-weight-bolder py-2 font-size-sm">Edit</a>--}}
-{{--                                                </div>--}}
-{{--                                            </div>--}}
-{{--                                            <!--end::Symbol-->--}}
-{{--                                            <!--begin::Title-->--}}
-{{--                                            <div class="d-flex flex-column flex-grow-1 my-lg-0 my-2 pr-3">--}}
-{{--                                                <a href="#" class="text-dark-75 font-weight-bolder text-hover-primary font-size-lg mb-2">Nike Airmax</a>--}}
-{{--                                                <span class="text-muted font-weight-bold font-size-sm mb-3">All it takes tank credibility is one glaring error</span>--}}
-{{--                                                <span class="text-muted font-weight-bold font-size-lg">Price:--}}
-{{--														<span class="text-dark-75 font-weight-bolder">99.00$</span></span>--}}
-{{--                                            </div>--}}
-{{--                                            <!--end::Title-->--}}
-{{--                                        </div>--}}
-{{--                                        <!--end::Item-->--}}
-{{--                                    </div>--}}
-{{--                                    <!--end::Body-->--}}
-{{--                                </div>--}}
-                                <!--end::List Widget 21-->
+
                             </div>
                             <!--end::Aside-->
                             <!--begin::Layout-->
                             <div class="flex-row-fluid ml-lg-8">
                                 <!--begin::Card-->
+                                <!--begin::Section-->
+
                                 <div class="card card-custom card-stretch gutter-b">
+                                    @if($selectBrand == null)
+                                        <div id="carouselExampleSlidesOnly" class="carousel slide" data-ride="carousel">
+                                            <div class="carousel-inner">
+                                                @foreach($sliderList as $sliderL)
+                                                <div class="carousel-item @if($loop->first)active @endif ">
+                                                    <img class="d-block w-100" src="{{$sliderL->image}}">
+                                                </div>
+                                                @endforeach
+                                            </div>
+                                            <div class="d-flex justify-content-center flex-wrap">
+                                                <div class="col-3 border  text-center py-1">
+                                                    <img class="text-center rounded-circle border border-secondary p-2" src="assets/media/svg/icons/Clothes/Sneakers.svg" width="50px">
+
+                                                    <h6 class="pt-2">ສິນ​ຄ້າທຸກ​ອັນ​​ຂອງ​ແທ້​100%</h6>
+                                                </div>
+                                                <div class="col-3 border text-center py-1">
+                                                    <img class="text-center rounded-circle border border-secondary p-2" src="assets/media/svg/icons/Shopping/Price2.svg" width="50px">
+
+
+                                                    <h6 class="pt-2">ລາ​ຄາ​ສຸດ​ຄຸ້ມ​ຄ່າ​ທີ່​ສຸດ</h6>
+                                                </div>
+                                                <div class="col-3 border text-center py-1">
+                                                    <img class="text-center rounded-circle border border-secondary p-2" src="assets/media/svg/icons/Communication/Incoming-box.svg" width="50px">
+                                                    <h6 class="pt-2">ສາ​ມາດ​ສັ່ງ​ຜ່ານ​ເວັບ 3-7ມື</h6>
+                                                </div>
+                                                <div class="col-3 border text-center py-1">
+                                                    <img class="text-center rounded-circle border border-secondary p-2" src="assets/media/svg/icons/Map/Marker1.svg" width="50px">
+                                                    <h6 class="pt-2">ຈັດ​ສົ່ງຟຣີເຖິງທີ່</h6>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                @endif
+                                <!--end::Section-->
                                     <div class="card-body">
 
-                                                            <!--begin::Section-->
-                                        @if($selectBrand == null)
-                                                            <div class="card card-custom">
-                                                                <div class="card-body p-0">
-                                                                    <div class="row">
-                                                                        <div class="col-md-6 col-lg-12 col-xxl-6">
-                                                                            <!--begin::Featured Category-->
-                                                                            <div class="card card-custom card-stretch card-stretch-half gutter-b">
-                                                                                <div class="card-body p-0 d-flex rounded" style="background:radial-gradient(94.09% 94.09% at 50% 50%, rgba(255, 255, 255, 0.45) 0%, rgba(255, 255, 255, 0) 100%), #FFA800;">
-                                                                                    <div class="row m-0">
-                                                                                        <div class="col-7 p-0">
-                                                                                            <div class="card card-custom card-stretch card-transparent card-shadowless">
-                                                                                                <div class="card-body d-flex flex-column justify-content-center pr-0">
-                                                                                                    <h3 class="font-size-h4 font-size-h1-sm font-size-h4-lg font-size-h1-xl mb-0">
-                                                                                                        <a href="#" class="text-white font-weight-bolder">Smart Watches</a>
-                                                                                                    </h3>
-                                                                                                    <div class="font-size-lg font-size-h4-sm font-size-h6-lg font-size-h4-xl text-dark">Make It Amazing</div>
-                                                                                                </div>
-                                                                                            </div>
-                                                                                        </div>
-                                                                                        <div class="d-flex flex-center col-5 p-0">
-                                                                                            <img src="assets/media/products/1.png" class="d-flex flex-row-fluid w-100" style="transform: scale(1.3);" />
-                                                                                        </div>
-                                                                                    </div>
-                                                                                </div>
-                                                                            </div>
-                                                                            <!--end::Featured Category-->
-                                                                            <!--begin::Featured Category-->
-                                                                            <div class="card card-custom card-stretch card-stretch-half gutter-b">
-                                                                                <div class="card-body p-0 d-flex rounded" style="background: radial-gradient(110.23% 110.23% at 50% 50%, rgba(255, 255, 255, 0.27) 0%, rgba(255, 255, 255, 0) 100%), #8950FC;">
-                                                                                    <div class="row m-0">
-                                                                                        <div class="col-7 p-0">
-                                                                                            <div class="card card-custom card-stretch card-transparent card-shadowless">
-                                                                                                <div class="card-body d-flex flex-column justify-content-center pr-0">
-                                                                                                    <h3 class="font-size-h4 font-size-h1-sm font-size-h4-lg font-size-h1-xl mb-0">
-                                                                                                        <a href="#" class="text-white font-weight-bolder">Headphones</a>
-                                                                                                    </h3>
-                                                                                                    <div class="font-size-lg font-size-h4-sm font-size-h6-lg font-size-h4-xl text-dark">Make It Amazing</div>
-                                                                                                </div>
-                                                                                            </div>
-                                                                                        </div>
-                                                                                        <div class="col-5 p-0 d-flex flex-center">
-                                                                                            <img src="assets/media/products/21.png" class="d-flex flex-row-fluid w-100" style="transform: scale(1.3);" />
-                                                                                        </div>
-                                                                                    </div>
-                                                                                </div>
-                                                                            </div>
-                                                                            <!--end::Featured Category-->
-                                                                        </div>
-                                                                        <div class="col-md-6 col-lg-12 col-xxl-6">
-                                                                            <!--begin::Featured Category-->
-                                                                            <div class="card card-custom card-stretch gutter-b">
-                                                                                <div class="card-body d-flex flex-column rounded justify-content-between p-14" style="background: radial-gradient(83.15% 83.15% at 50% 50%, rgba(255, 255, 255, 0.35) 0%, rgba(255, 255, 255, 0) 100%), #1BC5BD;">
-                                                                                    <img src="assets/media/products/22.png" class="w-100" style="transform: scale(1.2);" />
-                                                                                    <div class="text-center">
-                                                                                        <h3 class="font-size-h1 mb-0">
-                                                                                            <a href="#" class="text-white font-weight-bolder">Smart Toys</a>
-                                                                                        </h3>
-                                                                                        <div class="font-size-h4 text-dark">Get Amazing Toys</div>
-                                                                                    </div>
-                                                                                </div>
-                                                                            </div>
-                                                                            <!--end::Featured Category-->
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                        @endif
-                                                            <!--end::Section-->
+
 
                                     @foreach($brands as $brand)
                                         <!--begin::Section-->
@@ -682,7 +569,7 @@
                                                 @if($brand->id == $selectBrand || $selectBrand==null)
                                                 <div class="d-flex justify-content-between align-items-center mb-7">
                                                     <h2 class="font-weight-bolder text-dark font-size-h3 mb-0">{{$brand->brand}}</h2>
-                                                    <a href="#" class="btn btn-light-primary btn-sm font-weight-bolder">ທັງ​ໝົດ ({{$brand->sneakers->count()}})</a>
+{{--                                                    <a href="#" class="btn btn-light-primary btn-sm font-weight-bolder">ທັງ​ໝົດ ({{$brand->sneakers->count()}})</a>--}}
                                                 </div>
                                                 @endif
                                                 <!--end::Heading-->
@@ -695,37 +582,43 @@
                                                     @if($brand->id == $sneaker->brand_id)
 
                                                         <!--begin::Product-->
-                                                            <div class="col-md-4 col-xxl-4 col-lg-12">
-                                                                <!--begin::Card-->
-                                                                <div class="card card-custom card-shadowless">
-                                                                    <div class="ribbon ribbon-top ribbon-ver rounded" style="background-color: #1F1E2E">
-                                                                        <div class="ribbon-target bg-primary" style="top: -2px; right: 20px;">New!</div>
-                                                                        <h3 class="card-title text-white mt-1 ml-1">{{$sneaker->brands->brand}}</h3>
+                                                            <div class="col-md-3 col-sm-6">
+                                                                <div class="product-grid">
+                                                                    <div class="product-image">
+                                                                        <a href="#" class="image rounded">
+                                                                            @foreach($sneaker->sneakerImages->take(2) as $key => $image)
+                                                                            <img class="pic-{{$key+1}} rounded" src="{{$image->name}}">
+                                                                            @endforeach
+                                                                        </a>
+                                                                        <span class="product-sale-label {{$sneaker->statuses->style}}">{{$sneaker->statuses->name}}</span>
+                                                                        @if($sneaker->discounts->number>0)
+                                                                        <span class="product-discount-label {{$sneaker->discounts->style}}">-{{$sneaker->discounts->number}}%</span>
+                                                                            @endif
                                                                     </div>
-                                                                    <div class="card-body p-0">
-
-                                                                        <!--begin::Image-->
-                                                                        <div class="overlay">
-                                                                            <div class="overlay-wrapper rounded bg-light text-center">
-                                                                                <img src="{{$sneaker->sneakerImages->first()->name}}" alt="" class="mw-100 w-200px" />
-                                                                            </div>
-                                                                            <div class="overlay-layer">
-                                                                                <a href="#" class="btn font-weight-bolder btn-sm btn-primary mr-2">Quick View</a>
-                                                                                <a href="#" class="btn font-weight-bolder btn-sm btn-light-primary">Purchase</a>
-                                                                            </div>
+                                                                    <div class="product-content">
+{{--                                                                        <ul class="rating">--}}
+{{--                                                                            <li class="fas fa-star"></li>--}}
+{{--                                                                            <li class="fas fa-star"></li>--}}
+{{--                                                                            <li class="fas fa-star"></li>--}}
+{{--                                                                            <li class="fas fa-star"></li>--}}
+{{--                                                                            <li class="fas fa-star disable"></li>--}}
+{{--                                                                        </ul>--}}
+                                                                        <span class="h6">{{$sneaker->brands->brand}} {{$sneaker->name_eng}}</span>
+                                                                        @if($sneaker->discounts->number>0)
+                                                                        <div class="price text-primary"><span>{{number_format($sneaker->price_sell)}}ກີບ</span> {{number_format($sneaker->price)}}ກີບ</div>
+                                                                        @else
+                                                                            <div class="price text-primary "> {{number_format($sneaker->price_sell)}}ກີບ</div>
+                                                                        @endif
+                                                                        <div class="product-button-group">
+                                                                            <span class="product-like-icon"><i class="fas fa-arrow-circle-right"></i></span>
+                                                                            <a class="add-to-cart" href="{{route('product.detail',$sneaker->id)}}">ເບີ່ງສິນ​ຄ້າ</a>
+                                                                            <span class="product-compare-icon" href="#"><i class="fas fa-arrow-circle-left"></i></span>
                                                                         </div>
-                                                                        <!--end::Image-->
-                                                                        <!--begin::Details-->
-                                                                        <div class="text-center mt-5 mb-md-0 mb-lg-5 mb-md-0 mb-lg-5 mb-lg-0 mb-5 d-flex flex-column">
-                                                                            <a href="#" class="font-size-h5 font-weight-bolder text-dark-75 text-hover-primary mb-1">{{number_format($sneaker->price_sell)}} ກີບ</a>
-                                                                            <span class="font-size-lg">{{$sneaker->brands->brand}} {{$sneaker->name_eng}}</span>
-                                                                        </div>
-                                                                        <!--end::Details-->
                                                                     </div>
                                                                 </div>
-
-                                                                <!--end::Card-->
                                                             </div>
+
+
                                                             <!--end::Product-->
                                                         @endif
                                                     @endforeach
@@ -747,21 +640,22 @@
                 <!--end::Entry-->
             </div>
             <!--end::Content-->
+
             <!--begin::Footer-->
+
             <div class="footer bg-white py-4 d-flex flex-lg-column" id="kt_footer">
                 <!--begin::Container-->
                 <div class="container d-flex flex-column flex-md-row align-items-center justify-content-between">
                     <!--begin::Copyright-->
                     <div class="text-dark order-2 order-md-1">
-                        <span class="text-muted font-weight-bold mr-2">2020©</span>
-                        <a href="http://keenthemes.com/metronic" target="_blank" class="text-dark-75 text-hover-primary">Keenthemes</a>
+                        <span class="text-muted font-weight-bold mr-2">2021©</span>
+                        <a href="http://keenthemes.com/metronic" target="_blank" class="text-dark-75 text-hover-primary">SneakerJ</a>
                     </div>
                     <!--end::Copyright-->
                     <!--begin::Nav-->
                     <div class="nav nav-dark order-1 order-md-2">
-                        <a href="http://keenthemes.com/metronic" target="_blank" class="nav-link pr-3 pl-0">About</a>
-                        <a href="http://keenthemes.com/metronic" target="_blank" class="nav-link px-3">Team</a>
-                        <a href="http://keenthemes.com/metronic" target="_blank" class="nav-link pl-3 pr-0">Contact</a>
+                        <a href="#http://keenthemes.com/metronic" target="_blank" class="nav-link pr-3 pl-0">About</a>
+                        <a href="#" target="_blank" class="nav-link pl-3 pr-0">Contact</a>
                     </div>
                     <!--end::Nav-->
                 </div>
@@ -771,8 +665,9 @@
         </div>
         <!--end::Wrapper-->
     </div>
+
     <!--end::Page-->
-</div>
+
 
 
 
@@ -799,3 +694,6 @@
 
 </div>
 
+
+</div>
+</div>

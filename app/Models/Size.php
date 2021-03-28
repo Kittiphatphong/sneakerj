@@ -15,4 +15,7 @@ class Size extends Model
     public function sizeSnearkers(){
         return $this->hasMany(SizeSneaker::class,'size_id');
     }
+    public function orders(){
+        return $this->hasOne(Order::class,'size_id');
+    }
 }

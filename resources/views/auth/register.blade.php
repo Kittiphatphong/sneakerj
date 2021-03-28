@@ -1,4 +1,4 @@
-@extends('frame.emptyLayout')
+@extends('frame.emtyframe')
 @section('title','Register')
 @section('content')
 {{--<x-guest-layout>--}}

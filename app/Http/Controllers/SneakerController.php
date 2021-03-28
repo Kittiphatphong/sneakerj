@@ -6,7 +6,9 @@ namespace App\Http\Controllers;
 use App\Models\ColorSneaker;
 use App\Models\SizeSneaker;
 use App\Models\Sneaker;
+use App\Models\SneakerBrand;
 use App\Models\SneakerImage;
+use App\Models\Discount;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
@@ -54,9 +56,11 @@ class SneakerController extends Controller
             'for' => 'required',
             'colors' => 'required',
             'sizes' => 'required',
+            'discount_id' => 'required',
+            'status_id' => 'required',
             'images' => 'required'
         ]);
-
+        $discount= Discount::find($request->discount_id);
         $sneaker = new Sneaker();
         $sneaker->name_eng = $request->name_eng;
         $sneaker->name_lao = $request->name_lao;
@@ -65,6 +69,10 @@ class SneakerController extends Controller
         $sneaker->year = $request->year;
         $sneaker->brand_id = $request->brand_id;
         $sneaker->type_id = $request->type_id;
+        $sneaker->discount_id = $request->discount_id;
+        $sneaker->status_id = $request->status_id;
+        $sneaker->price = (1-$discount->percent)*$request->price_sell;
+        $sneaker->fullName = SneakerBrand::find($request->brand_id)->brand." ".$request->name_eng." ".$request->name_lao;
         $sneaker->for = $request->for;
         $sneaker->save();
         foreach ($request->colors as $color){
@@ -148,5 +156,15 @@ class SneakerController extends Controller
             $sneakerImage->save();
             Storage::disk('local')->put('public/sneaker_image/'.$imageName, $imageEncode);
         }
+    }
+
+    public function detail($id){
+        $sneaker = Sneaker::find($id);
+        $new = Sneaker::take(3)->get();
+        return view('productDetail')
+//            ->with('sneaker',$sneaker)
+            ->with('sneakerJJ',$sneaker)
+            ->with('newSneakers' ,$new)
+            ->with('sneakers',Sneaker::all()->where('brand_id',$sneaker->brand_id)->random(3));
     }
 }

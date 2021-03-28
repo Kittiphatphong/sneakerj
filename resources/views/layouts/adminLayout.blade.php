@@ -1138,6 +1138,45 @@
                                             </ul>
                                         </div>
                                     </li>
+                                    <li class="menu-item menu-item-submenu menu-item-rel @if(isset($discounts)|| isset($status) || isset($sliders)) menu-item-open menu-item-here menu-item-submenu menu-item-rel menu-item-open menu-item-here @endif" data-menu-toggle="click" aria-haspopup="true">
+                                        <a href="javascript:;" class="menu-link menu-toggle">
+                                            <span class="menu-text">Marketing</span>
+                                            <span class="menu-desc"></span>
+                                            <i class="menu-arrow"></i>
+                                        </a>
+                                        <div class="menu-submenu menu-submenu-classic menu-submenu-left">
+                                            <ul class="menu-subnav">
+
+                                                <li class="menu-item @isset($discounts) menu-item-active @endisset" aria-haspopup="true">
+                                                    <a href="{{route('discount.index')}}" class="menu-link">
+																<span class="svg-icon menu-icon">
+																</span>
+                                                        <span class="menu-text">Discount</span>
+                                                    </a>
+                                                </li>
+                                                <li class="menu-item @isset($status) menu-item-active @endisset" aria-haspopup="true">
+                                                    <a  href="{{route('status.index')}}" class="menu-link">
+																<span class="svg-icon menu-icon">
+																</span>
+                                                        <span class="menu-text">Status</span>
+                                                    </a>
+
+                                                <li class="menu-item @isset($sliders) menu-item-active @endisset" aria-haspopup="true">
+                                                    <a  href="{{route('slider.index')}}" class="menu-link">
+																<span class="svg-icon menu-icon">
+																</span>
+                                                        <span class="menu-text">Sliders</span>
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        </div>
+
+
+                                    <li class="menu-item @isset($orderList) menu-item-open menu-item-here menu-item-submenu menu-item-rel menu-item-open menu-item-here @endisset" aria-haspopup="true">
+                                        <a href="{{route('order-admin.index')}}" class="menu-link">
+                                            <span class="menu-text ">Orders</span>
+                                        </a>
+                                    </li>
 {{--                                    <li class="menu-item menu-item-submenu menu-item-rel" data-menu-toggle="click" aria-haspopup="true">--}}
 {{--                                        <a href="javascript:;" class="menu-link menu-toggle">--}}
 {{--                                            <span class="menu-text">Crud</span>--}}

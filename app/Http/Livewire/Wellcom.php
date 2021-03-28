@@ -3,6 +3,7 @@
 namespace App\Http\Livewire;
 
 use App\Models\Color;
+use App\Models\Slider;
 use App\Models\Sneaker;
 use App\Models\SneakerBrand;
 use App\Models\SneakerType;
@@ -15,6 +16,7 @@ class Wellcom extends Component
     public $color = [];
     public $price = 0 ;
     public $selectBrand = null;
+    public $searchAll;
 
     public function refresh(){
         $this->type = [];
@@ -30,7 +32,8 @@ class Wellcom extends Component
     {
         $brands = SneakerBrand::all();
         $types = SneakerType::orderBy('id','desc')->get();
-        $sneakers = Sneaker::orderBy('id','desc');
+        $sneakers = Sneaker::orderBy('id','desc')
+        ->where('fullName','like','%'.$this->searchAll.'%');
         $colors = Color::orderBy('id','desc')->get();
 
         if($this->price != 0 ){
@@ -57,8 +60,9 @@ class Wellcom extends Component
                      break;
                  default:
              }
-            $sneakers->whereBetween('price_sell',[$price1,$price2]);
+            $sneakers->whereBetween('price',[$price1,$price2]);
         }
+
 
         if($this->type != null){
             $sneakers->whereHas('types',function ($q){
@@ -77,11 +81,13 @@ class Wellcom extends Component
 
         return view('livewire.wellcom')
             ->with('sneakers',$sneakers)
+            ->with('sneakerDataList',$sneakers->get())
             ->with('sneakers1',Sneaker::all())
             ->with('types',$types)
             ->with('brands',$brands)
             ->with('colors',$colors)
-            ->with('menuBrands',SneakerBrand::all());
+            ->with('menuBrands',SneakerBrand::all())
+            ->with('sliderList',Slider::latest()->get());
     }
 
 }

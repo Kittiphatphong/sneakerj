@@ -54,7 +54,7 @@
 {{--        </form>--}}
 {{--    </x-auth-card>--}}
 {{--</x-guest-layout>--}}
-@extends('frame.emptyLayout')
+@extends('frame.emtyframe')
 @section('title','Login')
 @section('content')
 <div class="d-flex flex-column flex-root">

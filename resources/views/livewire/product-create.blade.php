@@ -92,7 +92,24 @@
                     @endif
                     </div>
                 </div>
+                <div class="form-group">
+                    <label>Discount</label>
+                    <select class="form-control"  name="discount_id">
 
+                        @foreach($discounts as $discount)
+                            <option value="{{$discount->id}}" @isset($p)  @if($p->discount_id==$discount->id) selected @endif @endisset>{{$discount->number}} %</option>
+                        @endforeach
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Status</label>
+                    <select class="form-control"  name="status_id">
+
+                        @foreach($statuses as $status)
+                            <option value="{{$status->id}}" @isset($p)  @if($p->status_id==$status->id) selected @endif @endisset>{{$status->name}}</option>
+                        @endforeach
+                    </select>
+                </div>
 
                 <div class="form-group">
                     <lable>IMAGES</lable>

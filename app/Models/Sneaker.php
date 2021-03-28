@@ -24,4 +24,16 @@ class Sneaker extends Model
     public function sneakerImages(){
         return $this->hasMany(SneakerImage::class,'sneaker_id');
     }
+    public function image(){
+        return $this->hasMany(SneakerImage::class,'sneaker_id')->first()->name;
+    }
+    public function orders(){
+        return $this->hasOne(Sneaker::class,'sneaker_id');
+    }
+    public function statuses(){
+        return $this->belongsTo(Status::class,'status_id');
+    }
+    public function discounts(){
+        return $this->belongsTo(Discount::class,'discount_id');
+    }
 }
